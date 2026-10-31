@@ -12,7 +12,7 @@ morgan.token('body', (req) => JSON.stringify(req.body))
 
 app.use(
   morgan(
-    ':method :url :status :res[content-length] - :response-time ms :body', 
+    ':method :url :status :res[content-length] - :response-time ms :body',
     { stream: { write: (entry) => console.log(entry) } }
   )
 )
@@ -22,7 +22,7 @@ app.get('/info', (request, response, next) => {
     .then(persons => {
       const nowDate = new Date()
       response.send(
-        '<div>Phonebook has info for ' + persons.length + ' people</div>' + 
+        '<div>Phonebook has info for ' + persons.length + ' people</div>' +
         '<div>' + nowDate + '</div>'
       )
     })
@@ -62,14 +62,14 @@ app.post('/api/persons', (request, response, next) => {
   const body = request.body
 
   if (!body.name) {
-    return response.status(400).json({ 
-      error: 'name is missing' 
+    return response.status(400).json({
+      error: 'name is missing'
     })
   }
 
   if (!body.number) {
-    return response.status(400).json({ 
-      error: 'number is missing' 
+    return response.status(400).json({
+      error: 'number is missing'
     })
   }
 
@@ -95,14 +95,14 @@ app.put('/api/persons/:id', (request, response, next) => {
       }
 
       if (!name) {
-        return response.status(400).json({ 
-          error: 'name is missing' 
+        return response.status(400).json({
+          error: 'name is missing'
         })
       }
 
       if (!number) {
-        return response.status(400).json({ 
-          error: 'number is missing' 
+        return response.status(400).json({
+          error: 'number is missing'
         })
       }
 
@@ -129,7 +129,7 @@ const errorHandler = (error, request, response, next) => {
   if (error.name === 'CastError') {
     return response.status(400).send({ error: 'malformatted id' })
   } else if (error.name === 'ValidationError') {
-    return response.status(400).json({ error: error.message })  
+    return response.status(400).json({ error: error.message })
   }
 
   next(error)
